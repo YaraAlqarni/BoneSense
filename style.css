@@ -494,13 +494,16 @@ footer {
         font-size: 1em;
     }
 
-    /* Progress Circle Mobile - CENTERED AND STATIC */
+    /* Progress Circle Mobile - CENTERED AND STATIC - FIXED */
     .progress-circle {
-        position: static;
+        position: relative !important;
+        top: auto !important;
+        right: auto !important;
         width: 180px;
         height: 180px;
         margin: 0 auto 30px auto;
         display: block;
+        z-index: 1;
     }
 
     .circle-text {
@@ -521,6 +524,7 @@ footer {
         padding: 25px 20px;
         margin-bottom: 20px;
         border-radius: 15px;
+        clear: both;
     }
 
     .gauge-label h2 {
