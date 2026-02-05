@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoneSense - Data Input</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>BoneSense</h1>
+                <p class="subtitle">Bone Density Assessment System</p>
+            </div>
+        </header>
+
+        <main class="input-form">
+            <div class="form-card">
+                <h2>Enter Measurement Values</h2>
+                <p class="description">Please enter the resistance and reactance values from the EIS device</p>
+                
+                <form id="measurementForm">
+                    <div class="form-group">
+                        <label for="resistance">Resistance (R)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="resistance" name="resistance" 
+                                   step="0.1" required placeholder="Enter resistance value">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reactance">Reactance (X)</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="reactance" name="reactance" 
+                                   step="0.1" required placeholder="Enter reactance value">
+                        </div>
+                    </div>
+
+     
+                    <button type="submit" class="btn-primary">
+                        <span>Analyze Results</span>
+                        <span class="arrow">→</span>
+                    </button>
+                </form>
+
+                <div class="example-values">
+                    <p><strong>Example Values:</strong></p>
+                    <button type="button" class="btn-secondary" onclick="fillExample()">
+                        Use Sample Values
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2026 BoneSense - All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
