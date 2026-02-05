@@ -1,98 +1,185 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BoneSense - Patient Portal</title>
-    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
-    <div class="container results-page">
-        <header>
-            <div class="logo">
-                <h1>BoneSense</h1>
-                <p class="subtitle">Patient Portal</p>
-            </div>
-        </header>
+<div class="container results-page">
 
-        <div class="results-layout">
-            <aside class="patient-info">
-                <h3>PATIENT INFORMATION</h3>
-                <div class="info-item">
-                    <strong>Name:</strong> <span id="patientName">Nada Abdullah</span>
-                </div>
-                <div class="info-item">
-                    <strong>Age:</strong> <span id="patientAge">68 Years</span>
-                </div>
-                <div class="info-item">
-                    <strong>Gender:</strong> <span id="patientGender">Female</span>
-                </div>
-
-                <div class="measurement-details">
-                    <h4>Measurement Values:</h4>
-                    <div class="measurement-item">
-                        <span>Resistance (R):</span>
-                        <strong id="displayR">-</strong>
-                    </div>
-                    <div class="measurement-item">
-                        <span>Reactance (Xc):</span>
-                        <strong id="displayXc">-</strong>
-                    </div>
-                    <div class="measurement-item" style="background: #e0f7fa; padding: 5px; border-radius: 5px;">
-                        <span>Impedance (Z):</span>
-                        <strong id="displayZ">-</strong>
-                    </div>
-                </div>
-            </aside>
-
-            <main class="results-main">
-                <div class="progress-circle">
-                    <svg width="180" height="180" viewBox="0 0 200 200">
-                        <circle cx="100" cy="100" r="85" fill="white" stroke="#e0e0e0" stroke-width="14"/>
-                        <circle id="progressCircle" cx="100" cy="100" r="85" fill="none" 
-                                stroke="#00BCD4" stroke-width="14" stroke-linecap="round"
-                                transform="rotate(-90 100 100)"/>
-                    </svg>
-                    <div class="circle-text">
-                        <p>Status</p>
-                        <p><strong id="statusSummary">Analyzing...</strong></p>
-                    </div>
-                </div>
-
-                <div class="gauge-section">
-                    <canvas id="densityGauge"></canvas>
-                    <div class="gauge-label">
-                        <h2 id="densityLevel">LOADING...</h2>
-                        <p id="impedanceDisplay">Impedance: -- Ω</p>
-                    </div>
-                    
-                    <div class="scale-container">
-                        <div class="blended-gradient-bar"></div>
-                        <div class="scale-text-labels">
-                            <span>Normal</span>
-                            <span>Osteopenia</span>
-                            <span>Osteoporosis</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="trend-section">
-                    <h3>IMPEDANCE TREND (LAST 1 YEAR)</h3>
-                    <canvas id="trendChart"></canvas>
-                </div>
-
-                <div class="action-buttons">
-                    <button class="btn-primary" onclick="window.location.href='index.html'">New Measurement</button>
-                    <button class="btn-secondary" onclick="window.print()">Print Report</button>
-                </div>
-            </main>
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            <h1>BoneSense</h1>
+            <p class="subtitle">Patient Portal</p>
         </div>
+    </header>
 
-        <footer>
-            <p>© 2026 BoneSense - Intelligent Bone Density Assessment System</p>
-        </footer>
+    <div class="results-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="patient-info">
+            <h3>PATIENT INFORMATION</h3>
+
+            <div class="info-item">
+                <strong>Name:</strong>
+                <span id="patientName">Nada Abdullah</span>
+            </div>
+
+            <div class="info-item">
+                <strong>Age:</strong>
+                <span id="patientAge">68 Years</span>
+            </div>
+
+            <div class="info-item">
+                <strong>Gender:</strong>
+                <span id="patientGender">Female</span>
+            </div>
+
+            <div class="measurement-details">
+                <h4>Measurement Values</h4>
+
+                <div class="measurement-item">
+                    <span>Resistance (R)</span>
+                    <strong id="displayR">-</strong>
+                </div>
+
+                <div class="measurement-item">
+                    <span>Reactance (Xc)</span>
+                    <strong id="displayXc">-</strong>
+                </div>
+
+                <div class="measurement-item highlight">
+                    <span>Impedance (Z)</span>
+                    <strong id="displayZ">-</strong>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="results-main">
+
+            <!-- PROGRESS CIRCLE -->
+            <div class="progress-circle">
+
+                <svg width="200" height="200" viewBox="0 0 200 200">
+                    <defs>
+
+                        <!-- HEALTHY (GREEN DOMINANT) -->
+                        <linearGradient id="progressGradient"
+                            gradientUnits="userSpaceOnUse"
+                            x1="100" y1="0"
+                            x2="100" y2="200">
+                            <stop offset="0%" stop-color="#00BCD4" />
+                            <stop offset="60%" stop-color="#4CAF50" />
+                            <stop offset="100%" stop-color="#2E7D32" />
+                        </linearGradient>
+
+                        <!-- MEDIUM -->
+                        <linearGradient id="mediumGradient"
+                            gradientUnits="userSpaceOnUse"
+                            x1="100" y1="0"
+                            x2="100" y2="200">
+                            <stop offset="0%" stop-color="#FFEB3B" />
+                            <stop offset="100%" stop-color="#FF9800" />
+                        </linearGradient>
+
+                        <!-- RISK -->
+                        <linearGradient id="riskGradient"
+                            gradientUnits="userSpaceOnUse"
+                            x1="100" y1="0"
+                            x2="100" y2="200">
+                            <stop offset="0%" stop-color="#FF5722" />
+                            <stop offset="100%" stop-color="#F44336" />
+                        </linearGradient>
+
+                    </defs>
+
+                    <!-- BACKGROUND CIRCLE -->
+                    <circle
+                        cx="100"
+                        cy="100"
+                        r="85"
+                        fill="none"
+                        stroke="#eeeeee"
+                        stroke-width="14"
+                    />
+
+                    <!-- PROGRESS -->
+                    <circle
+                        id="progressCircle"
+                        cx="100"
+                        cy="100"
+                        r="85"
+                        fill="none"
+                        stroke="url(#progressGradient)"
+                        stroke-width="14"
+                        stroke-linecap="round"
+                        transform="rotate(-90 100 100)"
+                        stroke-dasharray="534"
+                        stroke-dashoffset="534"
+                    />
+                </svg>
+
+                <div class="circle-text">
+                    <p>Status</p>
+                    <strong id="statusSummary">Analyzing...</strong>
+                </div>
+            </div>
+
+            <!-- GAUGE -->
+            <div class="gauge-section">
+                <canvas id="densityGauge" width="400" height="250"></canvas>
+
+                <div class="gauge-label">
+                    <h2 id="densityLevel">LOADING...</h2>
+                    <p id="impedanceDisplay">Impedance: -- Ω</p>
+                </div>
+
+                <div class="scale-container">
+                    <div class="blended-gradient-bar"></div>
+                    <div class="scale-text-labels">
+                        <span>Normal</span>
+                        <span>Osteopenia</span>
+                        <span>Osteoporosis</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TREND -->
+            <div class="trend-section">
+                <h3>IMPEDANCE TREND (LAST 1 YEAR)</h3>
+                <canvas id="trendChart"></canvas>
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="action-buttons">
+                <button class="btn-primary"
+                    onclick="window.location.href='index.html'">
+                    New Measurement
+                </button>
+
+                <button class="btn-secondary"
+                    onclick="window.print()">
+                    Print Report
+                </button>
+            </div>
+
+        </main>
     </div>
-    <script src="results.js"></script>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 BoneSense - Intelligent Bone Density Assessment System</p>
+    </footer>
+
+</div>
+
+<script src="results.js"></script>
 </body>
 </html>

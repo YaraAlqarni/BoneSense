@@ -45,3 +45,9 @@ document.querySelectorAll('input[type="number"]').forEach(input => {
         }
     });
 });
+
+/* ... 
+قراءة القيم من المستخدم
+حساب المعاوقة: Z = √(R² + Xc²)
+حفظ البيانات في localStorage
+الانتقال لصفحة النتائج """*/
