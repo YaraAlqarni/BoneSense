@@ -459,7 +459,8 @@ footer {
     .results-main {
         order: 1;
         padding: 20px 15px;
-        padding-top: 30px;
+        padding-top: 20px;
+        position: static;
     }
 
     /* Patient info comes second */
@@ -496,14 +497,15 @@ footer {
 
     /* Progress Circle Mobile - CENTERED AND STATIC - FIXED */
     .progress-circle {
-        position: relative !important;
-        top: auto !important;
-        right: auto !important;
+        position: static !important;
         width: 180px;
         height: 180px;
-        margin: 0 auto 30px auto;
+        margin: 0 auto 40px auto !important;
         display: block;
         z-index: 1;
+        top: auto !important;
+        right: auto !important;
+        left: auto !important;
     }
 
     .circle-text {
@@ -523,6 +525,7 @@ footer {
     .gauge-section {
         padding: 25px 20px;
         margin-bottom: 20px;
+        margin-top: 20px;
         border-radius: 15px;
         clear: both;
     }
@@ -687,3 +690,4 @@ footer {
         font-size: 0.65em;
     }
 }
+/**==================== END OF STYLE.CSS ==================== */
